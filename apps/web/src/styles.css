@@ -1,0 +1,55 @@
+:root {
+  --bg: #0f1115;
+  --panel: #1a1d24;
+  --border: #2a2f3a;
+  --fg: #e6e8ee;
+  --muted: #8a93a6;
+  --accent: #7c9cff;
+  --ok: #4ade80;
+  --down: #f87171;
+  --pending: #facc15;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); }
+a { color: var(--accent); text-decoration: none; }
+code { background: var(--panel); padding: 2px 6px; border-radius: 4px; }
+
+.layout { min-height: 100vh; display: flex; flex-direction: column; }
+header {
+  display: flex; align-items: center; gap: 24px;
+  padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--panel);
+}
+header h1 { font-size: 18px; margin: 0; }
+header nav { flex: 1; display: flex; gap: 16px; }
+main { padding: 32px 24px; max-width: 960px; width: 100%; margin: 0 auto; }
+h2 { margin-top: 0; }
+
+.muted { color: var(--muted); }
+.health { font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border); }
+.health.ok { color: var(--ok); border-color: var(--ok); }
+.health.down { color: var(--down); border-color: var(--down); }
+.health.pending { color: var(--pending); border-color: var(--pending); }
+
+.dropzone, .player-placeholder {
+  margin-top: 16px; padding: 48px; border: 2px dashed var(--border);
+  border-radius: 12px; text-align: center; color: var(--muted);
+}
+.dropzone { cursor: pointer; display: block; transition: border-color 120ms, background 120ms; }
+.dropzone:hover { border-color: var(--accent); }
+.dropzone.dragging { border-color: var(--accent); background: rgba(124, 156, 255, 0.08); }
+.dropzone.busy { cursor: progress; opacity: 0.7; }
+
+.error { color: var(--down); }
+.status { text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; padding: 2px 6px; border-radius: 4px; }
+.status-uploaded, .status-processing { background: rgba(250, 204, 21, 0.15); color: var(--pending); }
+.status-ready { background: rgba(74, 222, 128, 0.15); color: var(--ok); }
+.status-failed { background: rgba(248, 113, 113, 0.15); color: var(--down); }
+
+.extracted-text {
+  margin-top: 16px; padding: 16px; background: var(--panel); border: 1px solid var(--border);
+  border-radius: 8px; max-height: 480px; overflow: auto; white-space: pre-wrap;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
+}

@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: apt-postgres
+    environment:
+      POSTGRES_USER: apt
+      POSTGRES_PASSWORD: apt
+      POSTGRES_DB: apt
+    ports:
+      - "5432:5432"
+    volumes:
+      - apt-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apt -d apt"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: apt-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - apt-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.0
+    container_name: apt-qdrant
+    # Host ports remapped to 7333/7334 because the ai-job-hunter project
+    # already uses 6333/6334 on this machine. Inside the container it stays
+    # on 6333/6334 — only the host mapping changes.
+    ports:
+      - "7333:6333"
+      - "7334:6334"
+    volumes:
+      - apt-qdrant-data:/qdrant/storage
+
+volumes:
+  apt-pg-data:
+  apt-redis-data:
+  apt-qdrant-data:

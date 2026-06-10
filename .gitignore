@@ -1,0 +1,27 @@
+node_modules
+dist
+build
+.next
+.turbo
+coverage
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Storage (uploads, generated audio)
+storage/
+**/storage/
+!storage/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# IDE
+.idea
+.vscode
+
+# OS
+.DS_Store
